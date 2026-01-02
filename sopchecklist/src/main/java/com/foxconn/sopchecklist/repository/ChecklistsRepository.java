@@ -1,0 +1,57 @@
+package com.foxconn.sopchecklist.repository;
+
+import com.foxconn.sopchecklist.entity.Checklists;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface ChecklistsRepository extends JpaRepository<Checklists, Long> {
+    @Query(value = "\n" +
+            "SELECT DISTINCT c.*\n" +
+            "FROM Checklists c\n" +
+            "JOIN Checklist_Implementers ci ON ci.checklist_id = c.id\n" +
+            "LEFT JOIN user_groups ug ON CONCAT('user:', ug.user_id) = ci.implementer\n" +
+            "WHERE ci.implementer = CONCAT('group:', :groupId)\n" +
+            "   OR ug.group_id = :groupId\n",
+            nativeQuery = true)
+    List<Checklists> findByGroupOrUsersInGroup(@Param("groupId") Long groupId);
+
+    @Query(value = "\n" +
+            "SELECT DISTINCT c.*\n" +
+            "FROM Checklists c\n" +
+            "JOIN Checklist_Implementers ci ON ci.checklist_id = c.id\n" +
+            "LEFT JOIN user_groups ug ON CONCAT('user:', ug.user_id) = ci.implementer\n" +
+            "LEFT JOIN Users u ON ci.implementer = CONCAT('user:', u.userid)\n" +
+            "WHERE (ci.implementer = CONCAT('group:', :groupId)\n" +
+            "   OR ug.group_id = :groupId)\n" +
+            "  AND (:search IS NULL OR :search = '' OR\n" +
+            "       LOWER(u.full_name) LIKE LOWER(CONCAT('%', :search, '%')) OR\n" +
+            "       LOWER(u.manv) LIKE LOWER(CONCAT('%', :search, '%')))\n",
+            nativeQuery = true)
+    List<Checklists> findByGroupOrUsersInGroupAndUserSearch(@Param("groupId") Long groupId,
+                                                            @Param("search") String search);
+
+    @Query(value = "\n" +
+            "SELECT DISTINCT c.*\n" +
+            "FROM Checklists c\n" +
+            "JOIN Checklist_Implementers ci ON ci.checklist_id = c.id\n" +
+            "LEFT JOIN user_groups ug ON ug.group_id = CAST(SUBSTRING(ci.implementer, 7) AS UNSIGNED)\n" +
+            "WHERE ci.implementer = CONCAT('user:', :userId)\n" +
+            "   OR (ci.implementer LIKE 'group:%' AND ug.user_id = :userId)\n",
+            nativeQuery = true)
+    List<Checklists> findByUserOrGroups(@Param("userId") Long userId);
+
+    @Query(value = "\n" +
+            "SELECT DISTINCT c.*\n" +
+            "FROM Checklists c\n" +
+            "LEFT JOIN Checklist_Implementers ci ON ci.checklist_id = c.id\n" +
+            "LEFT JOIN Users u ON ci.implementer = CONCAT('user:', u.userid)\n" +
+            "WHERE (:search IS NULL OR :search = '' OR\n" +
+            "       LOWER(u.full_name) LIKE LOWER(CONCAT('%', :search, '%')) OR\n" +
+            "       LOWER(u.manv) LIKE LOWER(CONCAT('%', :search, '%')))\n",
+            nativeQuery = true)
+    List<Checklists> findAllWithUserSearch(@Param("search") String search);
+}
+

@@ -1,0 +1,171 @@
+.calendar-page {
+  padding: 16px;
+  background: #f0f2f5;
+  min-height: calc(100vh - 112px);
+}
+
+.calendar-page .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: none;
+}
+
+.calendar-page .ant-calendar {
+  background: #fff;
+}
+
+.calendar-page .calendar-note-preview {
+  margin-top: 4px;
+  font-size: 11px;
+  padding: 2px 0;
+  border-radius: 4px;
+  background-color: transparent;
+  max-height: 60px;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.calendar-page .calendar-note-line {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3px;
+  line-height: 1.4;
+  min-height: 16px;
+}
+
+.calendar-page .calendar-note-line:last-child {
+  margin-bottom: 0;
+}
+
+.calendar-page .calendar-note-bullet {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 4px;
+  flex-shrink: 0;
+  line-height: 1.4;
+  display: inline-block;
+  width: 8px;
+}
+
+.calendar-page .calendar-note-text {
+  flex: 1;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+  font-size: 11px;
+}
+
+/* Đảm bảo calendar cell có đủ không gian */
+.calendar-page .ant-picker-calendar-date-content {
+  min-height: 80px !important;
+}
+
+/* Styles cho month cell trong year view */
+.calendar-page .calendar-month-note-count {
+  margin-top: 8px;
+  padding: 4px 0;
+  text-align: center;
+}
+
+.calendar-page .ant-picker-calendar-month-panel-cell {
+  position: relative;
+}
+
+.calendar-page .ant-badge {
+  font-size: 12px;
+}
+
+.calendar-page .ant-badge-status-text {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.calendar-page .ant-calendar-date {
+  position: relative;
+}
+
+.calendar-page .ant-calendar-date:hover {
+  background-color: transparent;
+}
+
+/* Chỉ highlight cho ngày hiện tại (today) */
+.calendar-page .ant-picker-calendar-date-today,
+.calendar-page .ant-picker-cell-today .ant-picker-calendar-date {
+  background-color: #e6f7ff !important;
+  border: 1px solid #91d5ff !important;
+  border-radius: 6px !important;
+}
+
+.calendar-page .ant-picker-calendar-date-today .ant-picker-calendar-date-value,
+.calendar-page .ant-picker-cell-today .ant-picker-calendar-date-value {
+  color: #333 !important;
+  font-weight: normal !important;
+}
+
+/* Nếu hôm nay đồng thời là ô đang chọn, vẫn giữ highlight hôm nay */
+.calendar-page .ant-picker-cell-selected.ant-picker-cell-today .ant-picker-calendar-date {
+  background-color: #e6f7ff !important;
+  border: 1px solid #91d5ff !important;
+  border-radius: 6px !important;
+}
+
+.calendar-page .ant-picker-cell-selected.ant-picker-cell-today .ant-picker-calendar-date-value {
+  color: #333 !important;
+  font-weight: normal !important;
+}
+
+/* Đảm bảo tất cả các cells có border màu xanh đều bị ẩn */
+.calendar-page .ant-picker-calendar-date[style*="border-color"] {
+  border: none !important;
+}
+
+/* Kiểm tra và ẩn nếu có border màu xanh từ computed style */
+.calendar-page .ant-picker-calendar-date {
+  /* Reset tất cả border nếu có màu xanh */
+}
+
+/* Bỏ highlight cho selected/active cell */
+.calendar-page .ant-picker-cell-selected .ant-picker-calendar-date,
+.calendar-page .ant-picker-cell-selected:hover .ant-picker-calendar-date,
+.calendar-page .ant-picker-cell-active .ant-picker-calendar-date,
+.calendar-page .ant-picker-cell-active:hover .ant-picker-calendar-date {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.calendar-page .ant-picker-cell-selected .ant-picker-calendar-date-value,
+.calendar-page .ant-picker-cell-active .ant-picker-calendar-date-value {
+  color: #333 !important;
+  font-weight: normal !important;
+}
+
+/* Kích thước nội dung ngày */
+.calendar-page .ant-calendar-date-content {
+  min-height: 60px;
+}
+
+/* Notes List Styles */
+.calendar-page .note-list-item {
+  background: #fff;
+}
+
+.calendar-page .note-list-item.note-today {
+  border-left: none !important;
+  background: #fff !important;
+}
+
+.calendar-page .note-list-item.note-past {
+  opacity: 0.8;
+}
+
+.calendar-page .ant-list-item-meta-title {
+  margin-bottom: 4px !important;
+}
+
+.calendar-page .ant-empty {
+  margin: 20px 0;
+}
+
