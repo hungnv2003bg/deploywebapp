@@ -3,9 +3,10 @@ const API_CONFIG = {
     if (process.env.REACT_APP_BACKEND_URL) {
       return process.env.REACT_APP_BACKEND_URL;
     }
-    // Luôn sử dụng port 8080 cho backend, bất kể frontend chạy trên port nào
-    const { hostname } = window.location;
-    return `http://${hostname}:8080`;
+    // Sử dụng đường dẫn tương đối (relative path)
+    // - Ở môi trường Web (Production): Nginx sẽ tự điều hướng /api sang Backend (chạy nội bộ port 8080)
+    // - Ở môi trường Dev (Localhost): React Proxy (trong package.json) sẽ chuyển hướng sang localhost:8080
+    return '';
   })(),
   ENDPOINTS: {
     UPLOAD: '/api/upload',
